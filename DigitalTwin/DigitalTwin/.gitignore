@@ -1,0 +1,53 @@
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+
+# Eclipse
+.settings
+
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+# Generated files
+.idea/**/contentModel.xml
+*.class
+bin/
+
+# Sensitive or high-churn files
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+
+# Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
+/out/
+/.idea/misc.xml
+/.idea/vcs.xml
+/devicetwin.iml
+/.idea/modules.xml
+/twin1-tcplocalhost/
+/twin2-tcplocalhost/
+/twin3-tcplocalhost/
+/area51compositeTwin-tcplocalhost/
+/decoderTwin-tcplocalhost/
+/iotDeviceTwin1-tcplocalhost/
+/iotDeviceTwin2-tcplocalhost/
+/iotDeviceTwin3-tcplocalhost/
+/iotDeviceTwin4-tcplocalhost/
+/iotDeviceTwin5-tcplocalhost/
+/userTwin-tcplocalhost/
+/twin.db
+/.vscode/
+/.settings/
+/.idea/

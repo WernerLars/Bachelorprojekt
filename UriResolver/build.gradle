@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'application'
+}
+
+
+mainClassName = "de.ude.es.databaseTwin.StartDatabaseTwin"
+group 'de.ude.es'
+version '1.1.0'
+
+sourceCompatibility = 1.11
+
+repositories {
+    mavenCentral()
+    maven{
+        url = "http://artifactory.es.uni-due.de:8081/artifactory/libs-release"
+    }
+}
+
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.5.1'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.1.0'
+    implementation group: 'org.apache.jena', name: 'apache-jena-libs', version: '3.8.0'
+    implementation group: 'de.ude.es', name: 'MQTTMessageQueue', version: '1.0.0'
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.2'
+    implementation group: 'de.ude.es', name:'orchestration-utilities', version:'1.0.1'
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.0-alpha1'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}

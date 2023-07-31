@@ -1,0 +1,6 @@
+numpy
+tensorflow
+pandas
+simplejson
+pyyaml
+h5py

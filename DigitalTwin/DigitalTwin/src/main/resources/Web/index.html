@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Weatherdata</title>
+    <link href="style.css" rel="stylesheet" />
+</head>
+<body id="root">
+<header>
+    <img src="logo.png">
+    <h1>Weatherdata </h1>
+    <span id="lastUpdate"></span>
+    <br/>
+    <span id="nextUpdate"></span>
+</header>
+<div class="container">
+    <div class="card">
+        <h2>Grid No</h2>
+        <p id="gridno"></p>
+    </div>
+    <div class="card">
+        <h2 >Latitude</h2>
+        <p id="latitude"></p>
+    </div>
+    <div class="card">
+        <h2>Longitude</h2>
+        <p id="longitude"></p>
+    </div>
+    <div class="card">
+        <h2>Altitude</h2>
+        <p id="altitude"></p>
+    </div>
+    <div class="card">
+        <h2>Day</h2>
+        <p id="day"></p>
+    </div>
+    <div class="card">
+        <h2>Temp Max</h2>
+        <p id="tempmax"></p>
+    </div>
+    <div class="card">
+        <h2>Temp Min</h2>
+        <p id="tempmin"></p>
+    </div>
+    <div class="card">
+        <h2>Temp Avg</h2>
+        <p id="tempavg"></p>
+    </div>
+    <div class="card">
+        <h2>Windspeed</h2>
+        <p id="windspeed"></p>
+    </div>
+    <div class="card">
+        <h2>Vapourpressure</h2>
+        <p id="vapourpressure"></p>
+    </div>
+    <div class="card">
+        <h2>Radiation</h2>
+        <p id="radiation"></p>
+    </div>
+    <div class="card">
+        <h2>Snowdepth</h2>
+        <p id="snowdepth"></p>
+    </div>
+</div>
+<div class="Setting">
+    <button onclick="openModalSettings()" id="settings">Settings</button>
+    <label>Updates per Hour:</label> <input type="text" id="hour" size="6" value="" readonly>
+    <label>Records per Update:</label> <input type="text" id="records" size="6" value="" readonly>
+</div>
+<div class="buttons">
+    <button onclick="getLastTen()" id="last">Get Last Entries</button>
+    <button onclick="openModalLast()" id="lastSelect">Get Last Entries Selection</button>
+    <button onclick="openModalNext()" id="next">Get Next Entry</button>
+    <button onclick="openModalNextSelect()" id="nextSelect">Get Next Entry Selection</button>
+</div>
+<div class="modal" id="modalNext">
+    <div class="modal-content">
+        <span onclick="closeModalNext()" class="close">&times;</span>
+        <form id="formNext" onsubmit="return window.getNextEntry()">
+            <h3>Enter Area Code:</h3>
+            <label class="bag"> Area Code:
+                <input type="number" min="0" oninput="validity.valid||(value='');" id="areaCodeNext" name="areaCode" required>
+            </label>
+            <br><br>
+            <button type="reset">Reset</button>
+            <button type="submit" id="confirmNext">Confirm</button>
+            <br><br>
+        </form>
+    </div>
+</div>
+<div class="modal" id="modalNextSelect">
+    <div class="modal-content">
+        <span onclick="closeModalNextSelect()" class="close">&times;</span>
+        <form id="selectedValuesNext" onsubmit="return window.getSelectionNext()">
+            <h3>Enter Area Code:</h3>
+            <label class="bag"> Area Code:
+                <input type="number" min="0" oninput="validity.valid||(value='');" id="areaCodeSelect" name="areaCode" required>
+            </label>
+            <h3>Select columns to be fetched:</h3>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionNext" value="gridno">
+                Grid Number
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionNext" value="latitude">
+                Latitude
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionNext" value="longitude">
+                Longitude
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionNext" value="altitude">
+                Altitude
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionNext" value="day">
+                Day
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionNext" value="tempmax">
+                Temp Max
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionNext" value="tempmin">
+                Temp Min
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionNext" value="tempavg">
+                Temp Avg
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionNext" value="windspeed">
+                Windspeed
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionNext" value="vapourpressure">
+                Vapourpressure
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionNext" value="radiation">
+                Radiation
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionNext" value="snowdepth">
+                Snowdepth
+                <span class="checkmark"></span>
+            </label>
+            <br><br>
+            <button type="reset">Reset</button>
+            <button type="submit" id="confirmSelectNext">Confirm</button>
+            <br><br>
+        </form>
+    </div>
+</div>
+<div class="modal" id="modalLastSelect">
+    <div class="modal-content">
+        <span onclick="closeModalLast()" class="close">&times;</span>
+        <form id="selectedValuesLast" onsubmit="return window.getSelectionLast()">
+            <h3>Select columns to be fetched:</h3>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionLast" value="gridno">
+                Grid Number
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionLast" value="latitude">
+                Latitude
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionLast" value="longitude">
+                Longitude
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionLast" value="altitude">
+                Altitude
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionLast" value="day">
+                Day
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionLast" value="tempmax">
+                Temp Max
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionLast" value="tempmin">
+                Temp Min
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionLast" value="tempavg">
+                Temp Avg
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionLast" value="windspeed">
+                Windspeed
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionLast" value="vapourpressure">
+                Vapourpressure
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionLast" value="radiation">
+                Radiation
+                <span class="checkmark"></span>
+            </label>
+            <label class="bag">
+                <input type="checkbox" name="userSelectionLast" value="snowdepth">
+                Snowdepth
+                <span class="checkmark"></span>
+            </label>
+            <h3>Choose a filter:</h3>
+            <label class="bag"> Column Name:
+                <input type="text" id="filterText" name="filterCol">
+            </label>
+            <label class="bag">
+                <input type="radio" id="less" name="filterRadio" value="l">
+                <
+                <span></span>
+            </label>
+            <label class="bag">
+                <input type="radio" id="lessEq" name="filterRadio" value="le">
+                &le;
+                <span></span>
+            </label>
+            <label class="bag">
+                <input type="radio" id="Eq" name="filterRadio" value="">
+                =
+                <span></span>
+            </label>
+            <label class="bag">
+                <input type="radio" id="greater" name="filterRadio" value="g">
+                >
+                <span></span>
+            </label>
+            <label class="bag">
+                <input type="radio" id="greaterEq" name="filterRadio" value="ge">
+                &ge;
+                <span></span>
+            </label>
+            <label class="bag"> Value:
+                <input type="text" id="filterTextVal" name="value">
+            </label>
+            <label class="bag"> Limit:
+                <input type="text" id="filterLimit" name="limit">
+            </label>
+            <label class="bag"> Offset:
+                <input type="text" id="filterOffset" name="offset">
+            </label>
+            <br><br>
+            <button type="reset">Reset</button>
+            <button type="submit" id="confirmSelectLast">Confirm</button>
+            <br><br>
+        </form>
+    </div>
+</div>
+<div class="modal" id="modalSettings">
+    <div class="modal-content">
+        <span onclick="closeModalSettings()" class="close">&times;</span>
+        <form id="selectedSettings" onsubmit="return window.setSettings()">
+            <h3>Settings</h3>
+            <label class="bag"> Updates per Hour:
+                <input type="number" min="0" oninput="validity.valid||(value='');" id="updatesHour" name="time">
+            </label>
+            <label class="bag"> Records per Update:
+                <input type="number" min="0" oninput="validity.valid||(value='');" id="recordsAtOnce" name="quantity">
+            </label>
+            <br><br>
+            <button type="reset">Reset</button>
+            <button type="submit" id="confirmSettings">Confirm</button>
+            <br><br>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+<script src="scripts.js"></script>
